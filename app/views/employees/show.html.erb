@@ -1,0 +1,16 @@
+<br>
+<p>
+  <strong>Name:</strong>
+  <%= @employee.name %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @employee.email %>
+</p>
+<p>
+  <strong>Age:</strong>
+  <%= ((Time.zone.now - @employee.dob.to_time)/ 1.year.seconds).floor %>
+</p>
+
+<%= link_to "Edit", edit_employee_path %>
+<%= link_to "Back", employees_path %>

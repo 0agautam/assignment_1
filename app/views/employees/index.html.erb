@@ -1,0 +1,74 @@
+<div class="container">
+  <div style="display: inline-block;">
+    <h1>Employees</h1>  
+  </div>
+  <div style="display: inline-block; margin-left: 100px;">
+    <%= link_to "New Employee", new_employee_path, class: 'btn btn-primary' %>
+  </div>
+  <table class="container">
+    <thead>
+      <th> Name </th>
+      <th> Email </th>
+      <th> Age </th>
+      <th> Factors </th>
+      <th> Isprime </th>
+      <th colspan="3"> Actions </th>
+    </thead>
+    <% @employees.each do |employee|%>
+    <tbody>
+      <tr>
+        <td> <%= employee.name %> </td>
+        <td> <%= employee.email %> </td>
+        <% age = ((Time.zone.now - employee.dob.to_time) / 1.year.seconds).floor %>
+        <td> <%= age %> </td>
+        <td> <%= find_factor(age) %> </td>
+        <td> <%= is_prime(age) %> </td>
+        <td> <%= link_to "Show", employee %> </td>
+        <td> <%= link_to "Edit", edit_employee_path(employee) %> </td>
+        <td> <%= link_to "Delete", employee, method: :delete, data: {confirm: 'Are you sure?'} %> </td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+</div>
+
+<div>
+  <a href="#" onclick="paintIt(event, '#990000')">Paint it red</a>
+</div>
+<div>
+  <a href="#" onclick="paintIt(event, '#990000')">Paint it red</a>
+  <a href="#" onclick="paintIt(event, '#009900', '#FFFFFF')">Paint it green</a>
+  <a href="#" onclick="paintIt(event, '#000099', '#FFFFFF')">Paint it blue</a>
+</div>
+<div>
+  newwww links 
+  <a href="#" data-background-color="#990000">Paint it red</a>
+  <a href="#" data-background-color="#009900" data-text-color="#FFFFFF">Paint it green</a>
+  <a href="#" data-background-color="#000099" data-text-color="#FFFFFF">Paint it blue</a>
+</div>
+
+<script type="text/javascript">
+  
+  function paintIt(element, backgroundColor, textColor) {
+  element.style.backgroundColor = backgroundColor;
+  if (textColor) {
+    element.style.color = textColor;
+  }
+}
+
+window.addEventListener("load", () => {
+  const links = document.querySelectorAll(
+    "a[data-background-color]"
+  );
+  links.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const {backgroundColor, textColor} = element.dataset;
+      console.log("backgroundColor is:"+Object.keys(element.dataset)+" and textColor:"+textColor);
+      paintIt(element, backgroundColor, textColor);
+    });
+  });
+});
+
+</script>
